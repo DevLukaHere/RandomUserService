@@ -1,15 +1,26 @@
+using Microsoft.Extensions.Options;
+using RandomUserService.Api.Background;
+using RandomUserService.Core.Services;
+using RandomUserService.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddInfrastructure(builder.Configuration.GetConnectionString("DefaultConnection"));
+builder.Services.AddScoped<UserService>();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
+builder.Services.Configure<SchedulerSettings>(builder.Configuration.GetSection("Scheduler"));
 
-// Configure the HTTP request pipeline.
+builder.Services.AddSingleton<UserFetchScheduler>(sp =>
+{
+    var settings = sp.GetRequiredService<IOptions<SchedulerSettings>>().Value;
+    return new UserFetchScheduler(sp, settings);
+});
+
+var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -17,9 +28,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
