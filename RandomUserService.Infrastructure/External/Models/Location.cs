@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using RandomUserService.Infrastructure.Converters;
+using System.Text.Json.Serialization;
 
 namespace RandomUserService.Infrastructure.External.Models
 {
@@ -17,6 +18,7 @@ namespace RandomUserService.Infrastructure.External.Models
         public string Country { get; set; } = string.Empty;
 
         [JsonPropertyName("postcode")]
+        [JsonConverter(typeof(PostcodeConverter))]
         public string Postcode { get; set; } = string.Empty;
 
         [JsonPropertyName("coordinates")]

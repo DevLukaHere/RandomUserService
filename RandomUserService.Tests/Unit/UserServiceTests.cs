@@ -38,22 +38,24 @@ namespace RandomUserService.Tests.Unit
         }
 
         [Test]
-        public void GetUserByIdAsync_WhenNotFound_ShouldThrowException()
+        public async Task GetUserByIdAsync_WhenNotFound_ShouldReturnNull()
         {
-            // Arrange
-            _userRepositoryMock.Setup(r => r.GetByIdAsync(13)).ReturnsAsync((User?)null);
+            //Arrange
+            _userRepositoryMock
+                .Setup(r => r.GetByIdAsync(13))
+                .ReturnsAsync((User?)null);
 
-            // Act & Assert
-            var ex = Assert.ThrowsAsync<Exception>(() => _userService.GetUserByIdAsync(13));
+            //Act
+            var result = await _userService.GetUserByIdAsync(13);
 
             //Assert
-            Assert.That(ex!.Message, Is.EqualTo("User with ID 13 not found"));
+            Assert.That(result, Is.Null);
         }
 
         [Test]
         public async Task FetchAndSaveUserAsync_ShouldSaveUserAndReturnIt()
         {
-            // Arrange
+            //Arrange
             var apiUser = new User
             {
                 Title = "Mr",
@@ -70,10 +72,10 @@ namespace RandomUserService.Tests.Unit
                 .Callback<User>(u => savedUser = u)
                 .Returns(Task.CompletedTask);
 
-            // Act
+            //Act
             var result = await _userService.FetchAndSaveUserAsync();
 
-            // Assert
+            //Assert
             Assert.That(result.FirstName, Is.EqualTo("Łukasz"));
             Assert.That(savedUser, Is.Not.Null);
             _userRepositoryMock.Verify(r => r.AddAsync(It.IsAny<User>()), Times.Once);

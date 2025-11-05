@@ -22,22 +22,12 @@ namespace RandomUserService.Core.Services
         public async Task<User?> GetUserByIdAsync(int id)
         {
             var user = await _userRepository.GetByIdAsync(id);
-            if (user == null)
-            {
-                throw new Exception($"User with ID {id} not found");
-            }
-
             return user;
         }
 
         public async Task<User> FetchAndSaveUserAsync()
         {
             var randomUser = await _apiClient.GetRandomUserAsync();
-            if (randomUser == null)
-            {
-                throw new Exception("No user returned from API");
-            }
-
             await _userRepository.AddAsync(randomUser);
 
             return randomUser;

@@ -30,7 +30,7 @@ namespace RandomUserService.Api.Controllers
             var user = await _userService.GetUserByIdAsync(id);
             if (user == null)
             {
-                return NotFound();
+                return NotFound(id);
             }
             var userDto = user.ToDto();
 
