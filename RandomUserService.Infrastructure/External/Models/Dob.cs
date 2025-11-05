@@ -2,7 +2,7 @@
 
 namespace RandomUserService.Infrastructure.External.Models
 {
-    public class Dob
+    internal class Dob
     {
         [JsonPropertyName("date")]
         public DateTime Date { get; set; }

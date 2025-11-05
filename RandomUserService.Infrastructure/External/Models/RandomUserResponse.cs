@@ -2,12 +2,12 @@
 
 namespace RandomUserService.Infrastructure.External.Models
 {
-    public class RandomUserResponse
+    internal class RandomUserResponse
     {
         [JsonPropertyName("results")]
-        public List<UserResult> Results { get; set; } = new List<UserResult>();
+        public List<RandomUser> Results { get; set; } = [];
 
         [JsonPropertyName("info")]
-        public Info Info { get; set; } = new Info();
+        public Info Info { get; set; } = new();
     }
 }

@@ -2,10 +2,10 @@
 
 namespace RandomUserService.Infrastructure.External.Models
 {
-    public class Info
+    internal class Info
     {
         [JsonPropertyName("seed")]
-        public string Seed { get; set; } = "";
+        public string Seed { get; set; } = string.Empty;
 
         [JsonPropertyName("results")]
         public int Results { get; set; }
@@ -14,6 +14,6 @@ namespace RandomUserService.Infrastructure.External.Models
         public int Page { get; set; }
 
         [JsonPropertyName("version")]
-        public string Version { get; set; } = "";
+        public string Version { get; set; } = string.Empty;
     }
 }

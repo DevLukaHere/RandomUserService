@@ -2,15 +2,15 @@
 
 namespace RandomUserService.Infrastructure.External.Models
 {
-    public class Name
+    internal class Name
     {
         [JsonPropertyName("title")]
-        public string Title { get; set; } = "";
+        public string Title { get; set; } = string.Empty;
 
         [JsonPropertyName("first")]
-        public string First { get; set; } = "";
+        public string First { get; set; } = string.Empty;
 
         [JsonPropertyName("last")]
-        public string Last { get; set; } = "";
+        public string Last { get; set; } = string.Empty;
     }
 }

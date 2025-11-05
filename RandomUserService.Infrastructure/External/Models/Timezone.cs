@@ -2,12 +2,12 @@
 
 namespace RandomUserService.Infrastructure.External.Models
 {
-    public class Timezone
+    internal class Timezone
     {
         [JsonPropertyName("offset")]
-        public string Offset { get; set; } = "";
+        public string Offset { get; set; } = string.Empty;
 
         [JsonPropertyName("description")]
-        public string Description { get; set; } = "";
+        public string Description { get; set; } = string.Empty;
     }
 }

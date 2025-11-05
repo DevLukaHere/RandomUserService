@@ -2,7 +2,7 @@
 
 namespace RandomUserService.Infrastructure.External.Models
 {
-    public class Registered
+    internal class Registered
     {
         [JsonPropertyName("date")]
         public DateTime Date { get; set; }

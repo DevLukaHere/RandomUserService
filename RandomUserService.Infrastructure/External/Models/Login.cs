@@ -2,27 +2,27 @@
 
 namespace RandomUserService.Infrastructure.External.Models
 {
-    public class Login
+    internal class Login
     {
         [JsonPropertyName("uuid")]
-        public string Uuid { get; set; } = "";
+        public string Uuid { get; set; } = string.Empty;
 
         [JsonPropertyName("username")]
-        public string Username { get; set; } = "";
+        public string Username { get; set; } = string.Empty;
 
         [JsonPropertyName("password")]
-        public string Password { get; set; } = "";
+        public string Password { get; set; } = string.Empty;
 
         [JsonPropertyName("salt")]
-        public string Salt { get; set; } = "";
+        public string Salt { get; set; } = string.Empty;
 
         [JsonPropertyName("md5")]
-        public string Md5 { get; set; } = "";
+        public string Md5 { get; set; } = string.Empty;
 
         [JsonPropertyName("sha1")]
-        public string Sha1 { get; set; } = "";
+        public string Sha1 { get; set; } = string.Empty;
 
         [JsonPropertyName("sha256")]
-        public string Sha256 { get; set; } = "";
+        public string Sha256 { get; set; } = string.Empty;
     }
 }

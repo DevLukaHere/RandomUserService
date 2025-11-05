@@ -2,27 +2,27 @@
 
 namespace RandomUserService.Infrastructure.External.Models
 {
-    public class Location
+    internal class Location
     {
         [JsonPropertyName("street")]
-        public Street Street { get; set; } = new Street();
+        public Street Street { get; set; } = new();
 
         [JsonPropertyName("city")]
-        public string City { get; set; } = "";
+        public string City { get; set; } = string.Empty;
 
         [JsonPropertyName("state")]
-        public string State { get; set; } = "";
+        public string State { get; set; } = string.Empty;
 
         [JsonPropertyName("country")]
-        public string Country { get; set; } = "";
+        public string Country { get; set; } = string.Empty;
 
         [JsonPropertyName("postcode")]
-        public object Postcode { get; set; } = null!;
+        public string Postcode { get; set; } = string.Empty;
 
         [JsonPropertyName("coordinates")]
-        public Coordinates Coordinates { get; set; } = new Coordinates();
+        public Coordinates Coordinates { get; set; } = new();
 
         [JsonPropertyName("timezone")]
-        public Timezone Timezone { get; set; } = new Timezone();
+        public Timezone Timezone { get; set; } = new();
     }
 }
