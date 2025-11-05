@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RandomUserService.Api.Background;
+using RandomUserService.Core.Interfaces;
 
 namespace RandomUserService.Api.Controllers;
 
@@ -7,9 +7,9 @@ namespace RandomUserService.Api.Controllers;
 [Route("api/scheduler")]
 public class SchedulerController : ControllerBase
 {
-    private readonly UserFetchScheduler _scheduler;
+    private readonly IUserFetchScheduler _scheduler;
 
-    public SchedulerController(UserFetchScheduler scheduler)
+    public SchedulerController(IUserFetchScheduler scheduler)
     {
         _scheduler = scheduler;
     }

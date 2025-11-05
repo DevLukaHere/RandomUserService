@@ -3,7 +3,7 @@ using RandomUserService.Core.Interfaces;
 
 namespace RandomUserService.Core.Services
 {
-    public class UserService
+    internal class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
         private readonly IRandomUserApiClient _apiClient;
@@ -14,9 +14,22 @@ namespace RandomUserService.Core.Services
             _apiClient = apiClient;
         }
 
-        /// <summary>
-        /// Fetches a random user from the API, maps it to domain User, and saves to DB.
-        /// </summary>
+        public async Task<IEnumerable<User>> GetAllUsersAsync()
+        {
+            return await _userRepository.GetAllAsync();
+        }
+
+        public async Task<User?> GetUserByIdAsync(int id)
+        {
+            var user = await _userRepository.GetByIdAsync(id);
+            if (user == null)
+            {
+                throw new Exception($"User with ID {id} not found");
+            }
+
+            return user;
+        }
+
         public async Task<User> FetchAndSaveUserAsync()
         {
             var randomUser = await _apiClient.GetRandomUserAsync();
@@ -37,28 +50,6 @@ namespace RandomUserService.Core.Services
             };
 
             await _userRepository.AddAsync(user);
-
-            return user;
-        }
-
-        /// <summary>
-        /// Returns all users from DB
-        /// </summary>
-        public async Task<IEnumerable<User>> GetAllUsersAsync()
-        {
-            return await _userRepository.GetAllAsync();
-        }
-
-        /// <summary>
-        /// Returns a user by database ID
-        /// </summary>
-        public async Task<User?> GetUserByIdAsync(int id)
-        {
-            var user = await _userRepository.GetByIdAsync(id);
-            if (user == null)
-            {
-                throw new Exception($"User with ID {id} not found");
-            }
 
             return user;
         }

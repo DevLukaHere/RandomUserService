@@ -1,17 +1,18 @@
-﻿using RandomUserService.Core.Services;
+﻿using RandomUserService.Core.Interfaces;
+using RandomUserService.Core.Services;
 
 namespace RandomUserService.Api.Background
 {
-    public class UserFetchScheduler
+    internal class UserFetchScheduler : IUserFetchScheduler
     {
-        private readonly IServiceProvider _serviceProvider;
+        private readonly IServiceScopeFactory _scopeFactory;
         private readonly int _intervalSeconds;
         private Timer? _timer;
         private bool _isRunning;
 
-        public UserFetchScheduler(IServiceProvider serviceProvider, SchedulerSettings settings)
+        public UserFetchScheduler(SchedulerSettings settings, IServiceScopeFactory scopeFactory)
         {
-            _serviceProvider = serviceProvider;
+            _scopeFactory = scopeFactory;
             _intervalSeconds = settings.IntervalSeconds;
         }
 
@@ -49,8 +50,8 @@ namespace RandomUserService.Api.Background
         {
             try
             {
-                using var scope = _serviceProvider.CreateScope();
-                var userService = scope.ServiceProvider.GetRequiredService<UserService>();
+                using var scope = _scopeFactory.CreateScope();
+                var userService = scope.ServiceProvider.GetRequiredService<IUserService>();
                 await userService.FetchAndSaveUserAsync();
             }
             catch (Exception ex)

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RandomUserService.Api.DTO;
+using RandomUserService.Api.DTO.Mappings;
 using RandomUserService.Core.Services;
 
 namespace RandomUserService.Api.Controllers
@@ -8,9 +8,9 @@ namespace RandomUserService.Api.Controllers
     [Route("api/users")]
     public class UsersController : ControllerBase
     {
-        private readonly UserService _userService;
+        private readonly IUserService _userService;
 
-        public UsersController(UserService userService)
+        public UsersController(IUserService userService)
         {
             _userService = userService;
         }
@@ -18,41 +18,23 @@ namespace RandomUserService.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var users = (await _userService.GetAllUsersAsync())
-                .Select(u => new UserDto
-                {
-                    Id = u.Id,
-                    Title = u.Title,
-                    FirstName = u.FirstName,
-                    LastName = u.LastName,
-                    Gender = u.Gender,
-                    Email = u.Email,
-                    ExternalId = u.ExternalId,
-                    Timestamp = u.Timestamp
-                });
+            var users = await _userService.GetAllUsersAsync();
+            var usersDto = users.Select(user => user.ToDto());
 
-            return Ok(users);
+            return Ok(usersDto);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var user = await _userService.GetUserByIdAsync(id);
-            if (user == null) return NotFound();
-
-            var dto = new UserDto
+            if (user == null)
             {
-                Id = user.Id,
-                Title = user.Title,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Gender = user.Gender,
-                Email = user.Email,
-                ExternalId = user.ExternalId,
-                Timestamp = user.Timestamp
-            };
+                return NotFound();
+            }
+            var userDto = user.ToDto();
 
-            return Ok(dto);
+            return Ok(userDto);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace RandomUserService.Api.Background
 {
-    public class SchedulerSettings
+    internal class SchedulerSettings
     {
         public int IntervalSeconds { get; set; } = 10;
     }

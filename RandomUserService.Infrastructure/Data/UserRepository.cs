@@ -4,7 +4,7 @@ using RandomUserService.Core.Interfaces;
 
 namespace RandomUserService.Infrastructure.Data
 {
-    public class UserRepository : IUserRepository
+    internal class UserRepository : IUserRepository
     {
         private readonly AppDbContext _context;
 
