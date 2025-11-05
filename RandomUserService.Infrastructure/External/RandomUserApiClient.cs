@@ -2,6 +2,7 @@
 using RandomUserService.Core.Interfaces;
 using System.Net.Http.Json;
 using RandomUserService.Infrastructure.External.Models;
+using RandomUserService.Infrastructure.Mappings;
 
 namespace RandomUserService.Infrastructure.External
 {
@@ -18,22 +19,13 @@ namespace RandomUserService.Infrastructure.External
         public async Task<User> GetRandomUserAsync()
         {
             var response = await _httpClient.GetFromJsonAsync<RandomUserResponse>(Url);
-            var apiUser = response?.Results?.FirstOrDefault();
-            if (apiUser == null)
+            var randomUser = response?.Results.FirstOrDefault();
+            if (randomUser == null)
             {
                 throw new Exception("No user returned");
             }
 
-            return new User
-            {
-                Title = apiUser.Name.Title,
-                FirstName = apiUser.Name.First,
-                LastName = apiUser.Name.Last,
-                Gender = apiUser.Gender,
-                Email = apiUser.Email,
-                ExternalId = apiUser.Login.Uuid,
-                Timestamp = DateTime.UtcNow
-            };
+            return randomUser.ToDomain();
         }
     }
 }
