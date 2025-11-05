@@ -1,6 +1,6 @@
 ﻿namespace RandomUserService.Core.Interfaces
 {
-    public interface IUserFetchScheduler
+    public interface IScheduler
     {
         string Status { get; }
 

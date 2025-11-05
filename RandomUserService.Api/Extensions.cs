@@ -10,12 +10,12 @@ namespace RandomUserService.Api
         {
             services.Configure<SchedulerSettings>(configuration.GetSection("Scheduler"));
             services.AddHttpClient();
-            services.AddSingleton<IUserFetchScheduler>(sp =>
+            services.AddSingleton<IScheduler>(sp =>
             {
                 var settings = sp.GetRequiredService<IOptions<SchedulerSettings>>().Value;
                 var scopeFactory = sp.GetRequiredService<IServiceScopeFactory>();
 
-                return new UserFetchScheduler(settings, scopeFactory);
+                return new Scheduler(settings, scopeFactory);
             });
 
             return services;

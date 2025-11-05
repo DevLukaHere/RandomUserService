@@ -3,14 +3,14 @@ using RandomUserService.Core.Services;
 
 namespace RandomUserService.Api.Background
 {
-    internal class UserFetchScheduler : IUserFetchScheduler
+    internal class Scheduler : IScheduler
     {
         private readonly IServiceScopeFactory _scopeFactory;
         private readonly int _intervalSeconds;
         private Timer? _timer;
         private bool _isRunning;
 
-        public UserFetchScheduler(SchedulerSettings settings, IServiceScopeFactory scopeFactory)
+        public Scheduler(SchedulerSettings settings, IServiceScopeFactory scopeFactory)
         {
             _scopeFactory = scopeFactory;
             _intervalSeconds = settings.IntervalSeconds;

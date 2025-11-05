@@ -7,9 +7,9 @@ namespace RandomUserService.Api.Controllers;
 [Route("api/scheduler")]
 public class SchedulerController : ControllerBase
 {
-    private readonly IUserFetchScheduler _scheduler;
+    private readonly IScheduler _scheduler;
 
-    public SchedulerController(IUserFetchScheduler scheduler)
+    public SchedulerController(IScheduler scheduler)
     {
         _scheduler = scheduler;
     }

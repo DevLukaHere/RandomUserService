@@ -38,20 +38,9 @@ namespace RandomUserService.Core.Services
                 throw new Exception("No user returned from API");
             }
 
-            var user = new User
-            {
-                Title = randomUser.Title,
-                FirstName = randomUser.FirstName,
-                LastName = randomUser.LastName,
-                Gender = randomUser.Gender,
-                Email = randomUser.Email,
-                ExternalId = randomUser.ExternalId,
-                Timestamp = DateTime.UtcNow
-            };
+            await _userRepository.AddAsync(randomUser);
 
-            await _userRepository.AddAsync(user);
-
-            return user;
+            return randomUser;
         }
     }
 }
