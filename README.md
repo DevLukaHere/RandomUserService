@@ -49,8 +49,8 @@ This project follows a **Clean Architecture** approach.
 
 ### Clone the Repository
 
-git clone https://github.com/DevLukaHere/RandomUserService.git
-cd RandomUserService
+git clone https://github.com/DevLukaHere/RandomUserService.git  
+cd RandomUserService  
 
 ### Restore Dependencies
 
